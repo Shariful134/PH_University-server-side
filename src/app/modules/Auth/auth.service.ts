@@ -116,8 +116,13 @@ const changePassword = async (
 
 const refreshToken = async (token: string) => {
   // checking if the given token is valid
-  const decoded = verifyToken(token, config.jwt_refresh_secret as string);
-
+  let decoded;
+  try {
+    decoded = verifyToken(token, config.jwt_refresh_secret as string);
+  } catch {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'unauthorized');
+  }
+  console.log(decoded);
   const { userId, iat } = decoded;
 
   // checking if the user is exist
