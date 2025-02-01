@@ -31,10 +31,12 @@ const getAllAcademicSemesters = catchAsync(async (req, res) => {
 });
 
 const getSingleAcademicSemester = catchAsync(async (req, res) => {
-  const { semesterId } = req.params;
+  const { courseId } = req.params;
+  console.log(courseId);
 
   const result =
-    await AcademicSemesterServices.getSingleAcademicSemesterFromDB(semesterId);
+    await AcademicSemesterServices.getSingleAcademicSemesterFromDB(courseId);
+  console.log(result);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
